@@ -13,3 +13,6 @@ The basic functionality I want to implement is a static rendering of a single
 tiling with a single rule. Once this has been finished, I will add other
 nice features, such as being able to re-center the plane, or better colouring
 rules for tiles, or letting the user choose the tiling and the game rules.
+
+This project makes heavy use of [ItsNickBarry's hyperbolic-canvas](https://github.com/ItsNickBarry/hyperbolic-canvas)
+ library.
