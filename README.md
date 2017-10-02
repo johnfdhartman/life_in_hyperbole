@@ -6,7 +6,7 @@ but may be changed depending on what has the best dynamic behaviour.
 Same goes for the tiling - So far the heptagonal tiling seems like it would
 have the most 'life-like' behaviour and would be the easiest for the user
 to understand. An example of a similar interactive rendering of a tiling
-can be found[here](http://www.malinc.se/math/noneuclidean/poincaretilingen.php),
+can be found [here](http://www.malinc.se/math/noneuclidean/poincaretilingen.php),
 although it does not have cellular automata.
 
 The basic functionality I want to implement is a static rendering of a single
