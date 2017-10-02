@@ -1,5 +1,5 @@
 ;
-(function () {
+window.hypCanv = (function () {
   "use strict";
   if (typeof HyperbolicCanvas === "undefined") {
     window.HyperbolicCanvas = {};

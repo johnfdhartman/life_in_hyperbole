@@ -1,5 +1,4 @@
-;
-(function () {
+export default (function () {
   "use strict";
   if (typeof HyperbolicCanvas === "undefined") {
     window.HyperbolicCanvas = {};

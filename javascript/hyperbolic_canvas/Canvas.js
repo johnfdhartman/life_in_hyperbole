@@ -1,4 +1,4 @@
-;
+
 (function () {
   "use strict";
   if (typeof HyperbolicCanvas === "undefined") {
@@ -15,7 +15,6 @@
     this._setupElements(options);
     this._setupSize();
   };
-
   Canvas.prototype.getBackdropElement = function () {
     return this._backdrop;
   };
