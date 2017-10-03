@@ -1,4 +1,4 @@
-export default (function () {
+(function () {
   "use strict";
   if (typeof HyperbolicCanvas === "undefined") {
     window.HyperbolicCanvas = {};
