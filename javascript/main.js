@@ -1,31 +1,40 @@
 //distance from center of polygon to middle of side
 // let polyDistToSide = 0.44327230256253136;
 
+class Disc {
+  constructor(){
+    this.polyRadius = 0.63;
+    this.canvas = HyperbolicCanvas.create('#hyperbolic-canvas', 'main-canvas');
+    this.polygons = [];
+  }
 
-let hypCanv = HyperbolicCanvas;
-const polyRadius = 0.63;
-var canvas = hypCanv.create('#hyperbolic-canvas', 'main-canvas');
+  populateDisc(){
+
+  }
+
+}
+
 // let centerPoly = hypCanv.Polygon.givenHyperbolicNCenterRadius(7,
 //    hypCanv.Point.ORIGIN, polyRadius, Math.TAU / 7);
 // let centerPath = canvas.pathForHyperbolic(centerPoly);
 // canvas.stroke(centerPath);
 
-let mid1 = hypCanv.Point.givenHyperbolicPolarCoordinates(polyRadius, Math.PI * 0.5);
-let mid2 = mid1.rotateAboutOrigin(Math.TAU/3);
-let mid3 = mid2.rotateAboutOrigin(Math.TAU/3);
-
-let poly1 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid1, polyRadius, Math.TAU * (3/4));
-let poly2 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid2, polyRadius,
-  (Math.TAU/3) + Math.TAU * (3/4));
-let poly3 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid3, polyRadius,
-  2*(Math.TAU/3) + Math.TAU * (3/4));
-
-let path1 = canvas.pathForHyperbolic(poly1);
-canvas.stroke(path1);
-let path2 = canvas.pathForHyperbolic(poly2);
-canvas.stroke(path2);
-let path3 = canvas.pathForHyperbolic(poly3);
-canvas.stroke(path3);
+// let mid1 = hypCanv.Point.givenHyperbolicPolarCoordinates(polyRadius, Math.PI * 0.5);
+// let mid2 = mid1.rotateAboutOrigin(Math.TAU/3);
+// let mid3 = mid2.rotateAboutOrigin(Math.TAU/3);
+//
+// let poly1 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid1, polyRadius, Math.TAU * (3/4));
+// let poly2 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid2, polyRadius,
+//   (Math.TAU/3) + Math.TAU * (3/4));
+// let poly3 = hypCanv.Polygon.givenHyperbolicNCenterRadius(7, mid3, polyRadius,
+//   2*(Math.TAU/3) + Math.TAU * (3/4));
+//
+// let path1 = canvas.pathForHyperbolic(poly1);
+// canvas.stroke(path1);
+// let path2 = canvas.pathForHyperbolic(poly2);
+// canvas.stroke(path2);
+// let path3 = canvas.pathForHyperbolic(poly3);
+// canvas.stroke(path3);
 
 
 // canvas.setContextProperties({ fillStyle: '#DD4814' });
