@@ -69,7 +69,7 @@
 
 "use strict";
 class Cell {
-  constructor(){
+  constructor(depth){
     this.state = false;
     this.parents = [];
     this.siblings = [];
@@ -135,7 +135,7 @@ class Board {
     this.cells.push(cell);
   }
 
-  populateBoard(numCells){
+  populate(numCells){
     //algorithm description:
     //1) create the first three cells and make them siblings of each other
     //save them as currentLevel
@@ -145,11 +145,14 @@ class Board {
     //then set this new 'level' of cells as currentLevel. repeat 2)
     //until n cells have been generated (may go over numCells)
 
-    let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */]()];
+    let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1)];
+    let currentDepth = 1;
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
+      console.log('newLevel', newLevel);
       this.cells = this.cells.concat(currentLevel);
+      this.cells = this.cells.concat(newLevel);
       currentLevel = newLevel;
     }
 
@@ -190,7 +193,6 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
-    console.log('currentLevel', currentLevel);
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
       let numParents = currentCell.parents.length;
@@ -200,14 +202,12 @@ class Board {
         child.addParent(currentCell);
         children.push(child);
       }
-      console.log('nextLevel', nextLevel);
-      console.log('currentCell', currentCell);
-      console.log('children', children);
       let rightSibling = currentCell.siblings[currentCell.siblings.length -1];
       children[children.length - 1].addParent(rightSibling);
       nextLevel = nextLevel.concat(children);
     });
     this.connectLevel(nextLevel);
+    console.log(nextLevel);
     return nextLevel;
   }
 }
@@ -236,6 +236,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 document.addEventListener('DOMContentLoaded', () => {
   let board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */]();
   window.board = board;
+  let disc = new __WEBPACK_IMPORTED_MODULE_1__disc__["a" /* default */](board);
+  window.disc = disc;
 });
 
 
@@ -300,12 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 class Disc {
-  constructor(){
+  constructor(board){
     this.polyRadius = 0.63;
     this.canvas = HyperbolicCanvas.create('#hyperbolic-canvas', 'main-canvas');
     this.polygons = [];
-    this.board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */]();
-    this.board.populateBoard(20);
+    this.board = board;
   }
 
   populateDisc(){
@@ -313,6 +314,8 @@ class Disc {
   }
 
 }
+
+/* harmony default export */ __webpack_exports__["a"] = (Disc);
 
 
 /***/ })

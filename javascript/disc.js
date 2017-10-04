@@ -2,12 +2,11 @@ import Board from './board';
 import Cell from './cell';
 
 class Disc {
-  constructor(){
+  constructor(board){
     this.polyRadius = 0.63;
     this.canvas = HyperbolicCanvas.create('#hyperbolic-canvas', 'main-canvas');
     this.polygons = [];
-    this.board = new Board();
-    this.board.populateBoard(20);
+    this.board = board;
   }
 
   populateDisc(){
@@ -15,3 +14,5 @@ class Disc {
   }
 
 }
+
+export default Disc;

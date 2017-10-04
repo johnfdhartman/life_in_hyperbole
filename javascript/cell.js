@@ -1,5 +1,5 @@
 class Cell {
-  constructor(){
+  constructor(depth){
     this.state = false;
     this.parents = [];
     this.siblings = [];

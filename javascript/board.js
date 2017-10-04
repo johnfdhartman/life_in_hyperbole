@@ -9,7 +9,7 @@ class Board {
     this.cells.push(cell);
   }
 
-  populateBoard(numCells){
+  populate(numCells){
     //algorithm description:
     //1) create the first three cells and make them siblings of each other
     //save them as currentLevel
@@ -19,11 +19,14 @@ class Board {
     //then set this new 'level' of cells as currentLevel. repeat 2)
     //until n cells have been generated (may go over numCells)
 
-    let currentLevel = [new Cell(), new Cell(), new Cell()];
+    let currentLevel = [new Cell(1), new Cell(1), new Cell(1)];
+    let currentDepth = 1;
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
+      console.log('newLevel', newLevel);
       this.cells = this.cells.concat(currentLevel);
+      this.cells = this.cells.concat(newLevel);
       currentLevel = newLevel;
     }
 
@@ -64,7 +67,6 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
-    console.log('currentLevel', currentLevel);
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
       let numParents = currentCell.parents.length;
@@ -74,14 +76,12 @@ class Board {
         child.addParent(currentCell);
         children.push(child);
       }
-      console.log('nextLevel', nextLevel);
-      console.log('currentCell', currentCell);
-      console.log('children', children);
       let rightSibling = currentCell.siblings[currentCell.siblings.length -1];
       children[children.length - 1].addParent(rightSibling);
       nextLevel = nextLevel.concat(children);
     });
     this.connectLevel(nextLevel);
+    console.log(nextLevel);
     return nextLevel;
   }
 }

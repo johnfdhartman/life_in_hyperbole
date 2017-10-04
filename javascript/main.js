@@ -8,6 +8,8 @@ import Cell from './cell';
 document.addEventListener('DOMContentLoaded', () => {
   let board = new Board();
   window.board = board;
+  let disc = new Disc(board);
+  window.disc = disc;
 });
 
 
