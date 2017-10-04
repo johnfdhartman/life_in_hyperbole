@@ -75,6 +75,7 @@ class Cell {
     this.siblings = [];
     this.children = [];
     this.nextState = false;
+    this.polygon = null;
   }
 
   addParent(parent) {
@@ -127,8 +128,9 @@ class Cell {
 
 
 class Board {
-  constructor(){
+  constructor(disc){
     this.cells = [];
+    this.disc = disc;
   }
 
   addNode(cell){
@@ -150,14 +152,10 @@ class Board {
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
-      console.log('newLevel', newLevel);
       this.cells = this.cells.concat(currentLevel);
       this.cells = this.cells.concat(newLevel);
       currentLevel = newLevel;
     }
-
-    console.log('loop finished, this.cells =',this.cells);
-
   }
 
   // secondLevel(root) {
@@ -234,10 +232,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  let board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */]();
-  window.board = board;
-  let disc = new __WEBPACK_IMPORTED_MODULE_1__disc__["a" /* default */](board);
+  let disc = new __WEBPACK_IMPORTED_MODULE_1__disc__["a" /* default */]();
   window.disc = disc;
+  let board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */](disc);
+  window.board = board;
 });
 
 
@@ -302,15 +300,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 class Disc {
-  constructor(board){
+  constructor(){
+    this.hCanv = HyperbolicCanvas;
     this.polyRadius = 0.63;
-    this.canvas = HyperbolicCanvas.create('#hyperbolic-canvas', 'main-canvas');
-    this.polygons = [];
-    this.board = board;
+    this.canvas = this.hCanv.create('#hyperbolic-canvas', 'main-canvas');
+    let center = this.hCanv.Point.CENTER;
   }
 
-  populateDisc(){
-
+  drawFirstThree(cells) {
+    //takes an array of the three root cells
+    const firstMid = this.hCanv.Point
+      .givenHyperbolicPolarCoordinates(this.polyRadius, Math.PI * 0.5);
+    for (let i = 0; i < cells.length; i++) {
+      const mid = firstMid.rotateAboutOrigin(i * (Math.TAU/3));
+      const poly = this.hCanv.Polygon.givenHyperbolicNCenterRadius(
+        7, mid, this.polyRadius, (i * Math.TAU) + Math.TAU * (3/4)
+      );
+      const path = this.canvas.pathForHyperbolic(poly);
+      this.canvas.stroke(path);
+    }
   }
 
 }

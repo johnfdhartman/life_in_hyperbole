@@ -1,8 +1,9 @@
 import Cell from './cell';
 
 class Board {
-  constructor(){
+  constructor(disc){
     this.cells = [];
+    this.disc = disc;
   }
 
   addNode(cell){
@@ -24,14 +25,10 @@ class Board {
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
-      console.log('newLevel', newLevel);
       this.cells = this.cells.concat(currentLevel);
       this.cells = this.cells.concat(newLevel);
       currentLevel = newLevel;
     }
-
-    console.log('loop finished, this.cells =',this.cells);
-
   }
 
   // secondLevel(root) {

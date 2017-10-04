@@ -6,10 +6,10 @@ import Disc from './disc';
 import Cell from './cell';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let board = new Board();
-  window.board = board;
-  let disc = new Disc(board);
+  let disc = new Disc();
   window.disc = disc;
+  let board = new Board(disc);
+  window.board = board;
 });
 
 
