@@ -229,7 +229,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
+document.addEventListener('DOMContentLoaded', () => {
+  let board = new __WEBPACK_IMPORTED_MODULE_0__board__["a" /* default */]();
+  window.board = board;
+});
 
 
 // let centerPoly = hypCanv.Polygon.givenHyperbolicNCenterRadius(7,

@@ -5,7 +5,10 @@ import Board from './board';
 import Disc from './disc';
 import Cell from './cell';
 
-
+document.addEventListener('DOMContentLoaded', () => {
+  let board = new Board();
+  window.board = board;
+});
 
 
 // let centerPoly = hypCanv.Polygon.givenHyperbolicNCenterRadius(7,
