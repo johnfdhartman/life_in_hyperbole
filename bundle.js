@@ -205,7 +205,6 @@ class Board {
       nextLevel = nextLevel.concat(children);
     });
     this.connectLevel(nextLevel);
-    console.log(nextLevel);
     return nextLevel;
   }
 }
@@ -314,7 +313,7 @@ class Disc {
     for (let i = 0; i < cells.length; i++) {
       const mid = firstMid.rotateAboutOrigin(i * (Math.TAU/3));
       const poly = this.hCanv.Polygon.givenHyperbolicNCenterRadius(
-        7, mid, this.polyRadius, (i * Math.TAU) + Math.TAU * (3/4)
+        7, mid, this.polyRadius, (i * Math.TAU/3) + Math.TAU * (3/4)
       );
       const path = this.canvas.pathForHyperbolic(poly);
       this.canvas.stroke(path);

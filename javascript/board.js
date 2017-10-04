@@ -78,7 +78,6 @@ class Board {
       nextLevel = nextLevel.concat(children);
     });
     this.connectLevel(nextLevel);
-    console.log(nextLevel);
     return nextLevel;
   }
 }
