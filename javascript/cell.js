@@ -5,7 +5,6 @@ class Cell {
     this.siblings = [];
     this.children = [];
     this.nextState = false;
-    this.polygon = null;
   }
 
   addParent(parent) {

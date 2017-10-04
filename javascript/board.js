@@ -30,18 +30,6 @@ class Board {
     }
   }
 
-  // secondLevel(root) {
-  //   let newCell;
-  //   let nextLevel = [];
-  //   for (let i = 0; i < 7; i++) {
-  //     newCell = new Cell();
-  //     newCell.addNeighbor(root);
-  //     nextLevel.push(newCell);
-  //   }
-  //   this.connectLevel(nextLevel);
-  //   return nextLevel;
-  // }
-
   connectLevel(level) {
     // Takes a level of cells as an array, then makes each cell a sibling
     //of the cell to its right. this is stored as the *last* element
