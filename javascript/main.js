@@ -1,18 +1,12 @@
 //distance from center of polygon to middle of side
 // let polyDistToSide = 0.44327230256253136;
 
-class Disc {
-  constructor(){
-    this.polyRadius = 0.63;
-    this.canvas = HyperbolicCanvas.create('#hyperbolic-canvas', 'main-canvas');
-    this.polygons = [];
-  }
+import Board from './board';
+import Disc from './disc';
+import Cell from './cell';
 
-  populateDisc(){
 
-  }
 
-}
 
 // let centerPoly = hypCanv.Polygon.givenHyperbolicNCenterRadius(7,
 //    hypCanv.Point.ORIGIN, polyRadius, Math.TAU / 7);
