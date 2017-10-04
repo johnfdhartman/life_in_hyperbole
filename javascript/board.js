@@ -20,8 +20,7 @@ class Board {
     //then set this new 'level' of cells as currentLevel. repeat 2)
     //until n cells have been generated (may go over numCells)
 
-    let currentLevel = [new Cell(1), new Cell(1), new Cell(1)];
-    let currentDepth = 1;
+    let currentLevel = [new Cell(), new Cell(), new Cell()];
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);

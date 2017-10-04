@@ -69,7 +69,7 @@
 
 "use strict";
 class Cell {
-  constructor(depth){
+  constructor(){
     this.state = false;
     this.parents = [];
     this.siblings = [];
@@ -147,8 +147,7 @@ class Board {
     //then set this new 'level' of cells as currentLevel. repeat 2)
     //until n cells have been generated (may go over numCells)
 
-    let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1)];
-    let currentDepth = 1;
+    let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */]()];
     this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
@@ -297,7 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cell__ = __webpack_require__(0);
 
 
-
+//This class handles the rendering properties. game logic should
+//not go here
 class Disc {
   constructor(){
     this.hCanv = HyperbolicCanvas;
@@ -306,6 +306,14 @@ class Disc {
     let center = this.hCanv.Point.CENTER;
   }
 
+  receiveCells(cells) {
+    if (!this.cells) {
+      this.cells = cells;
+      this.drawBoard.bind(this)();
+    } else {
+      console.log('warning: receiveCells called when Disc.cells already exists');
+    }
+  }
   drawFirstThree(cells) {
     //takes an array of the three root cells
     const firstMid = this.hCanv.Point
@@ -316,8 +324,29 @@ class Disc {
         7, mid, this.polyRadius, (i * Math.TAU/3) + Math.TAU * (3/4)
       );
       const path = this.canvas.pathForHyperbolic(poly);
+      cells[i].polygon = poly;
       this.canvas.stroke(path);
     }
+  }
+
+  drawBoard() {
+    let firstThree = this.cells.slice(0,3);
+    this.cells.forEach( (cell) => {
+      if (!cell.polygon) {
+        //draw the cell given the parent
+        //how do?
+        //first: find the center of the new cell
+        //second: rotate the new cell correctly
+        //seems unlikely that the first part can be achieved for all
+        //cells without the second part.
+        //find a way for a parent with a correct rotation and position
+        //to generate children with correct rotation and position
+        //idea: get pairs of vertices to represent the side of a child polygon
+        //reflect the midpoint of the parent across the side to get the
+        //child midpoint. then get rotation such that the vertices of
+        //child will touch the vertex pair specified. (how???)
+      }
+    });
   }
 
 }
