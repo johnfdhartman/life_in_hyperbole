@@ -14,7 +14,7 @@ class Cell {
 
   addChild(child) {
     this.children.push(child);
-    child.addParent(this);
+    // child.addParent(this); this causes a loop
   }
 
   addRightSibling(sibling) {

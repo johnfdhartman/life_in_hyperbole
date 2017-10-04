@@ -20,7 +20,7 @@ class Board {
     //until n cells have been generated (may go over numCells)
 
     let currentLevel = [new Cell(), new Cell(), new Cell()];
-
+    this.connectLevel.bind(this)(currentLevel);
     while ((this.cells.length + currentLevel.length) < numCells) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
       this.cells = this.cells.concat(currentLevel);
@@ -64,16 +64,20 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
+    console.log('currentLevel', currentLevel);
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
       let numParents = currentCell.parents.length;
       let children = [];
-      for (let i = 0; i < (7 - numParents - 1); i++) {
+      for (let i = 0; i < (7 - numParents - 3); i++) {
         let child = new Cell();
         child.addParent(currentCell);
         children.push(child);
       }
-      let rightSibling = currentCell.siblings.last;
+      console.log('nextLevel', nextLevel);
+      console.log('currentCell', currentCell);
+      console.log('children', children);
+      let rightSibling = currentCell.siblings[currentCell.siblings.length -1];
       children[children.length - 1].addParent(rightSibling);
       nextLevel = nextLevel.concat(children);
     });
