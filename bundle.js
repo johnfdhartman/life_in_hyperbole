@@ -345,6 +345,14 @@ class Disc {
         //reflect the midpoint of the parent across the side to get the
         //child midpoint. then get rotation such that the vertices of
         //child will touch the vertex pair specified. (how???)
+
+        //idea: root polygons store a direction for each side
+        //when child polygon is generated, directions are saved as
+        //the reflection of the parent's directions along the axis
+        //they touch.
+        //insight: a child polygon is the *relection* of the parent polygon
+        //*along the axis they touch*
+        //this should be sufficient
       }
     });
   }
