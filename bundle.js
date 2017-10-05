@@ -364,18 +364,17 @@ class Disc {
         angleToParent * (i * Math.TAU/7)
       ));
     }
-    //only map centers that do not already have a center
-    console.log(cell.neighbors());
-    for (let i = 0; i < 7; i++) {
-      cell.neighbors().forEach ((neighbor) => {
-        if (neighborCenters[i].hyperbolicDistanceTo(neighbor.center)
-          <= (this.polyRadius / 2)) {
-            neighbor.center = neighborCenters[i];
-          }
-      });
-    }
-
+    //get all the neighbors without centers
+    //then iterate over neighborCenters, assigning centers
+    //problem: how do i make sure it's the right center for the right polygon?
+    //if a cell has two parents, we can see which neighborCenters the parent
+    //if the cell's siblings have already been assigned centers, we can
+    //cross reference with the cell's siblings
+    //eek
+    
   }
+
+
 
   drawPolygonFromVertex(cell, vertex) {
     //by now each cell has a center
@@ -399,8 +398,7 @@ class Disc {
   drawBoard() {
     let firstThree = this.cells.slice(0,3);
     this.cells.forEach( (cell) => {
-      if (!cell.polygon) {
-
+      for (let i = 0; i < 7; i++) {
       }
     });
   }
