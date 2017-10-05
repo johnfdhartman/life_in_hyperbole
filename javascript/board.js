@@ -10,7 +10,7 @@ class Board {
     this.cells.push(cell);
   }
 
-  populate(numCells){
+  populate(numLevels){
     //algorithm description:
     //1) create the first three cells and make them siblings of each other
     //save them as currentLevel
@@ -20,9 +20,9 @@ class Board {
     //then set this new 'level' of cells as currentLevel. repeat 2)
     //until n cells have been generated (may go over numCells)
 
-    let currentLevel = [new Cell(), new Cell(), new Cell()];
+    let currentLevel = [new Cell(0), new Cell(1), new Cell(2)];
     this.connectLevel.bind(this)(currentLevel);
-    while ((this.cells.length + currentLevel.length) < numCells) {
+    for (let i = 1; i < numLevels; i++) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
       this.cells = this.cells.concat(currentLevel);
       this.cells = this.cells.concat(newLevel);
@@ -51,12 +51,14 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
+    let lastId = currentLevel[currentLevel.length - 1].id;
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
       let numParents = currentCell.parents.length;
       let children = [];
       for (let i = 0; i < (7 - numParents - 3); i++) {
-        let child = new Cell();
+        lastId += 1;
+        let child = new Cell(lastId);
         child.addParent(currentCell);
         children.push(child);
       }

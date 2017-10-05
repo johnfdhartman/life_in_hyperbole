@@ -1,6 +1,7 @@
 class Cell {
-  constructor(){
+  constructor(id){
     this.state = false;
+    this.id = id;
     this.parents = [];
     this.siblings = [];
     this.children = [];
