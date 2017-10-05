@@ -2,7 +2,7 @@ import Cell from './cell';
 
 class Board {
   constructor(disc){
-    this.cells = [];
+    this.cells = {};
     this.disc = disc;
   }
 
@@ -22,10 +22,12 @@ class Board {
 
     let currentLevel = [new Cell(0), new Cell(1), new Cell(2)];
     this.connectLevel.bind(this)(currentLevel);
-    this.cells = currentLevel;
+    this.cells = {0: currentLevel[0], 1: currentLevel[1], 2: currentLevel[2]};
     for (let i = 1; i < numLevels; i++) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
-      this.cells = this.cells.concat(newLevel);
+      newLevel.forEach((cell) => {
+        this.cells[cell.id] = cell;
+      });
       currentLevel = newLevel;
     }
   }

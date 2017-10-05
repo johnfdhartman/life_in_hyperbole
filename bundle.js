@@ -129,7 +129,7 @@ class Cell {
 
 class Board {
   constructor(disc){
-    this.cells = [];
+    this.cells = {};
     this.disc = disc;
   }
 
@@ -149,10 +149,12 @@ class Board {
 
     let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](0), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](2)];
     this.connectLevel.bind(this)(currentLevel);
-    this.cells = currentLevel;
+    this.cells = {0: currentLevel[0], 1: currentLevel[1], 2: currentLevel[2]};
     for (let i = 1; i < numLevels; i++) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
-      this.cells = this.cells.concat(newLevel);
+      newLevel.forEach((cell) => {
+        this.cells[cell.id] = cell;
+      });
       currentLevel = newLevel;
     }
   }
