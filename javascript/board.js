@@ -62,11 +62,10 @@ class Board {
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
         let child = new Cell(lastId);
-        console.log('new Cell', child);
         child.addParent(currentCell);
         children.push(child);
       }
-      let rightSibling = currentCell.siblings[currentCell.siblings.length -1];
+      let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
       children[children.length - 1].addParent(rightSibling);
       nextLevel = nextLevel.concat(children);
     });

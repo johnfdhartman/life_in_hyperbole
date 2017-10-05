@@ -9,6 +9,7 @@ class Cell {
   }
 
   addParent(parent) {
+    console.log('parent', parent);
     this.parents.push(parent.id);
     parent.addChild(this);
   }

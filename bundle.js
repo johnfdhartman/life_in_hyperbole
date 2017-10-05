@@ -79,6 +79,7 @@ class Cell {
   }
 
   addParent(parent) {
+    console.log('parent', parent);
     this.parents.push(parent.id);
     parent.addChild(this);
   }
@@ -189,11 +190,10 @@ class Board {
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
         let child = new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](lastId);
-        console.log('new Cell', child);
         child.addParent(currentCell);
         children.push(child);
       }
-      let rightSibling = currentCell.siblings[currentCell.siblings.length -1];
+      let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
       children[children.length - 1].addParent(rightSibling);
       nextLevel = nextLevel.concat(children);
     });
