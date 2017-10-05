@@ -149,9 +149,9 @@ class Board {
 
     let currentLevel = [new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](0), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](1), new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](2)];
     this.connectLevel.bind(this)(currentLevel);
+    this.cells = currentLevel;
     for (let i = 1; i < numLevels; i++) {
       const newLevel = this.nextLevel.bind(this)(currentLevel);
-      this.cells = this.cells.concat(currentLevel);
       this.cells = this.cells.concat(newLevel);
       currentLevel = newLevel;
     }
@@ -178,6 +178,7 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
+    console.log('currentLevel', currentLevel);
     let lastId = currentLevel[currentLevel.length - 1].id;
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
@@ -186,6 +187,7 @@ class Board {
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
         let child = new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](lastId);
+        console.log('new Cell', child);
         child.addParent(currentCell);
         children.push(child);
       }
