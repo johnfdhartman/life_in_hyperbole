@@ -146,9 +146,10 @@
   };
 
   Point.prototype.hyperbolicDistanceTo = function (otherPoint) {
-    if (this.isIdeal() || otherPoint.isIdeal()) {
-      return Infinity;
-    }
+    //commenting this out because I'm not using ideals
+    // if (this.isIdeal() || otherPoint.isIdeal()) {
+    //   return Infinity;
+    // }
     var b = this.getHyperbolicRadius();
     var c = otherPoint.getHyperbolicRadius();
     var alpha = this.getAngle() - otherPoint.getAngle();

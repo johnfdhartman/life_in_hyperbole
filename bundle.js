@@ -296,12 +296,8 @@ class Disc {
   receiveCells(cells) {
     Object.freeze(cells);
     if (!this.cells) {
-      this.cells = [];
-      cells.map( (cell) => {
-        const newCell = Object.assign(newCell, cell);
-        this.cells.push(newCell);
-      });
-      this.drawBoard.bind(this)();
+      this.cells = this.deepCloneCells(cells);
+      this.drawBoard();
     } else {
       console.log('warning: receiveCells called when Disc.cells already exists');
     }
@@ -327,20 +323,49 @@ class Disc {
     this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
   }
 
+  deepCloneCells(cells) {
+    //load copies into a new array
+    //then save adjacencies in a new variable called neighbors
+    //the parents, siblings and children properties are deleted from
+    //the copy to keep things separate
+    Object.freeze(cells);
+    let newCells = [];
+    cells.map( (cell) => {
+      let newCell = new __WEBPACK_IMPORTED_MODULE_1__cell__["a" /* default */]();
+      Object.assign(newCell, cell);
+      this.cells.push(newCell);
+    });
+
+    newCells.each((newCell) => {
+      const newCellIdx = newCells.indexOf(newCell);
+      newCell.neighbors = [];
+      newCell.neighbors().each( (neighbor) => {
+        const neighborIdx = cells.indexOf(neighbor);
+        newCell.neighbors.push(newCells[neighborIdx]);
+      });
+      delete newCell.parents;
+      delete newCell.siblings;
+      delete newCell.children;
+    });
+    return newCells;
+  }
+
   setNeighborCenters(cell, parent) {
     //Find the centers of all neighbor polygons without centers
     //and then set their centers
     //Assumes cell has a center
     let neighborCenters = [];
     let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
-    angleToParent = this.hCanv.normalize(angleToParent);
+    angleToParent = this.hCanv.Angle.normalize(angleToParent);
     for (let i = 0; i < 7; i++) {
+      console.log('this.distBetweenCenters', this.distBetweenCenters);
       neighborCenters.push(cell.center.hyperbolicDistantPoint(
         this.distBetweenCenters,
         angleToParent * (i * Math.TAU/7)
       ));
     }
     //only map centers that do not already have a center
+    console.log(cell.neighbors());
     for (let i = 0; i < 7; i++) {
       cell.neighbors().forEach ((neighbor) => {
         if (neighborCenters[i].hyperbolicDistanceTo(neighbor.center)
@@ -352,7 +377,7 @@ class Disc {
 
   }
 
-  drawPolygonFromVertex(cell, vertex, angleOfReflection) {
+  drawPolygonFromVertex(cell, vertex) {
     //by now each cell has a center
     //given a center and a single vertex we can generate the
     //polygon
@@ -375,36 +400,6 @@ class Disc {
     let firstThree = this.cells.slice(0,3);
     this.cells.forEach( (cell) => {
       if (!cell.polygon) {
-        //draw the cell given the parent
-        //how do?
-        //first: find the center of the new cell
-        //second: rotate the new cell correctly
-        //seems unlikely that the first part can be achieved for all
-        //cells without the second part.
-        //find a way for a parent with a correct rotation and position
-        //to generate children with correct rotation and position
-        //idea: get pairs of vertices to represent the side of a child polygon
-        //reflect the midpoint of the parent across the side to get the
-        //child midpoint. then get rotation such that the vertices of
-        //child will touch the vertex pair specified. (how???)
-
-        //idea: root polygons store a direction for each side
-        //when child polygon is generated, directions are saved as
-        //the reflection of the parent's directions along the axis
-        //they touch.
-        //insight: a child polygon is the *relection* of the parent polygon
-        //*along the axis they touch*
-        //this should be sufficient
-
-        //how to do: the reflected polygon can be constructed from the
-        //reflected vertices. reflecting the vertices is easy: find the
-        //line from the vertex perpendicularly intersecting the
-        //dividing line, and double its length.
-        //problem: there's no method to reflect a point across an axis.
-        //either i have to construct that myself or use another option.
-
-        //other options? -- rotation based -- algebraic
-        //algebraic probably not feasible tbh.
 
       }
     });
