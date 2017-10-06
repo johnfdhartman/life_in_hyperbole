@@ -33,7 +33,7 @@ class Board {
     //of the cell to its right. this is stored as the *last* element
     //of the siblings array
     for (let i = 0; i < level.length; i++) {
-      level[i].addRightSibling(level[(i+1) % level.length]);
+      level[i].addRightSiblingId(level[(i+1) % level.length]);
     }
   }
 
@@ -58,7 +58,7 @@ class Board {
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
         let child = new Cell(lastId);
-        child.addParent(currentCell);
+        child.addParentId(currentCell);
         children.push(child);
       }
       let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
@@ -66,9 +66,9 @@ class Board {
       if (rightSibling.children.length > 0) {
         //only triggered on the very last currentCell
         //this is so the first cell's children are arranged clockwise
-        children[children.length -1].addSecondParent(rightSibling);
+        children[children.length -1].addSecondParentId(rightSibling);
       } else {
-        children[children.length - 1].addParent(rightSibling);
+        children[children.length - 1].addParentId(rightSibling);
       }
       nextLevel = nextLevel.concat(children);
     });

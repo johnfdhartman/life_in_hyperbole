@@ -78,39 +78,39 @@ class Cell {
     this.nextState = false;
   }
 
-  addParent(parent) {
+  addParentId(parent) {
     console.log('parent', parent);
     this.parents.push(parent.id);
     parent.addChild(this);
   }
 
-  addChild(child) {
+  addChildId(child) {
     this.children.push(child.id);
     // child.addParent(this); this causes a loop
   }
 
-  addRightSibling(sibling) {
+  addRightSiblingId(sibling) {
     this.siblings.push(sibling.id);
     sibling.addLeftSibling(this);
   }
 
-  addLeftSibling(sibling) {
+  addLeftSiblingId(sibling) {
     this.siblings.unshift(sibling.id);
   }
 
-  neighbors() {
+  neighborIds() {
     return (this.parents).concat(this.siblings).concat(this.children);
   }
 
   //these methods are specifically so that the first cell's children
   //are arranged clockwise
 
-  addSecondParent(parent) {
+  addSecondParentId(parent) {
     this.parents.push(parent.id);
     parent.addSharedChild(this);
   }
 
-  addSharedChild(child) {
+  addSharedChildId(child) {
     this.children.unshift(child.id);
   }
 
@@ -174,7 +174,7 @@ class Board {
     //of the cell to its right. this is stored as the *last* element
     //of the siblings array
     for (let i = 0; i < level.length; i++) {
-      level[i].addRightSibling(level[(i+1) % level.length]);
+      level[i].addRightSiblingId(level[(i+1) % level.length]);
     }
   }
 
@@ -199,7 +199,7 @@ class Board {
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
         let child = new __WEBPACK_IMPORTED_MODULE_0__cell__["a" /* default */](lastId);
-        child.addParent(currentCell);
+        child.addParentId(currentCell);
         children.push(child);
       }
       let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
@@ -207,9 +207,9 @@ class Board {
       if (rightSibling.children.length > 0) {
         //only triggered on the very last currentCell
         //this is so the first cell's children are arranged clockwise
-        children[children.length -1].addSecondParent(rightSibling);
+        children[children.length -1].addSecondParentId(rightSibling);
       } else {
-        children[children.length - 1].addParent(rightSibling);
+        children[children.length - 1].addParentId(rightSibling);
       }
       nextLevel = nextLevel.concat(children);
     });
@@ -350,16 +350,16 @@ class Disc {
     //Find the centers of all neighbor polygons without centers
     //and then set their centers
     //Assumes cell has a center
-    let neighborCenters = [];
-    let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
-    angleToParent = this.hCanv.Angle.normalize(angleToParent);
-    for (let i = 0; i < 7; i++) {
-      console.log('this.distBetweenCenters', this.distBetweenCenters);
-      neighborCenters.push(cell.center.hyperbolicDistantPoint(
-        this.distBetweenCenters,
-        angleToParent * (i * Math.TAU/7)
-      ));
-    }
+    // let neighborCenters = [];
+    // let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
+    // angleToParent = this.hCanv.Angle.normalize(angleToParent);
+    // for (let i = 0; i < 7; i++) {
+    //   console.log('this.distBetweenCenters', this.distBetweenCenters);
+    //   neighborCenters.push(cell.center.hyperbolicDistantPoint(
+    //     this.distBetweenCenters,
+    //     angleToParent * (i * Math.TAU/7)
+    //   ));
+    // }
 
     //insights: a pair of siblings cannot share more than one child
 
@@ -374,6 +374,10 @@ class Disc {
     // by TAU/7 radians until we generate a point that is more than polyRadius/2
     //away from a pre=assigned center
     //then we map the next k centers to the cell's k unassigned children
+    let unassignedChildren = [];
+
+    let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
+    angleToParent = this.hCanv.Angle.normalize(angleToParent);
 
 
 

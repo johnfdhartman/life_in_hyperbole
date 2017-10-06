@@ -8,39 +8,39 @@ class Cell {
     this.nextState = false;
   }
 
-  addParent(parent) {
+  addParentId(parent) {
     console.log('parent', parent);
     this.parents.push(parent.id);
     parent.addChild(this);
   }
 
-  addChild(child) {
+  addChildId(child) {
     this.children.push(child.id);
     // child.addParent(this); this causes a loop
   }
 
-  addRightSibling(sibling) {
+  addRightSiblingId(sibling) {
     this.siblings.push(sibling.id);
     sibling.addLeftSibling(this);
   }
 
-  addLeftSibling(sibling) {
+  addLeftSiblingId(sibling) {
     this.siblings.unshift(sibling.id);
   }
 
-  neighbors() {
+  neighborIds() {
     return (this.parents).concat(this.siblings).concat(this.children);
   }
 
   //these methods are specifically so that the first cell's children
   //are arranged clockwise
 
-  addSecondParent(parent) {
+  addSecondParentId(parent) {
     this.parents.push(parent.id);
     parent.addSharedChild(this);
   }
 
-  addSharedChild(child) {
+  addSharedChildId(child) {
     this.children.unshift(child.id);
   }
 

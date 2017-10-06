@@ -41,16 +41,16 @@ class Disc {
     //Find the centers of all neighbor polygons without centers
     //and then set their centers
     //Assumes cell has a center
-    let neighborCenters = [];
-    let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
-    angleToParent = this.hCanv.Angle.normalize(angleToParent);
-    for (let i = 0; i < 7; i++) {
-      console.log('this.distBetweenCenters', this.distBetweenCenters);
-      neighborCenters.push(cell.center.hyperbolicDistantPoint(
-        this.distBetweenCenters,
-        angleToParent * (i * Math.TAU/7)
-      ));
-    }
+    // let neighborCenters = [];
+    // let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
+    // angleToParent = this.hCanv.Angle.normalize(angleToParent);
+    // for (let i = 0; i < 7; i++) {
+    //   console.log('this.distBetweenCenters', this.distBetweenCenters);
+    //   neighborCenters.push(cell.center.hyperbolicDistantPoint(
+    //     this.distBetweenCenters,
+    //     angleToParent * (i * Math.TAU/7)
+    //   ));
+    // }
 
     //insights: a pair of siblings cannot share more than one child
 
@@ -65,6 +65,10 @@ class Disc {
     // by TAU/7 radians until we generate a point that is more than polyRadius/2
     //away from a pre=assigned center
     //then we map the next k centers to the cell's k unassigned children
+    let unassignedChildren = [];
+
+    let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
+    angleToParent = this.hCanv.Angle.normalize(angleToParent);
 
 
 
