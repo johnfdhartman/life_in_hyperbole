@@ -1,5 +1,6 @@
 import Board from './board';
 import Cell from './cell';
+import merge from 'lodash/merge';
 //This class handles the rendering properties. game logic should
 //not go here
 class Disc {
@@ -12,13 +13,9 @@ class Disc {
 
   receiveCells(cells) {
     Object.freeze(cells);
-    if (!this.cells) {
-      this.cells = this.deepCloneCells(cells);
-      this.drawBoard();
-    } else {
-      console.log('warning: receiveCells called when Disc.cells already exists');
-    }
+    this.cells = merge({}, cells);
   }
+  
   drawFirstThree() {
     //takes an array of the three root cells
 
