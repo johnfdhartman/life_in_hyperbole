@@ -6,10 +6,6 @@ class Board {
     this.disc = disc;
   }
 
-  addNode(cell){
-    this.cells.push(cell);
-  }
-
   populate(numLevels){
     //algorithm description:
     //1) create the first three cells and make them siblings of each other

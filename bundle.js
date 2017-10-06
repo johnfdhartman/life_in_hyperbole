@@ -91,11 +91,13 @@ class Cell {
 
   addRightSibling(sibling) {
     this.siblings.push(sibling.id);
-    sibling.addLeftSibling(sibling.id);
+    sibling.addLeftSiblingId(this.id);
   }
 
-  addLeftSibling(sibling) {
-    this.siblings.unshift(sibling.id);
+  addLeftSiblingId(siblingId) {
+    console.log('currentCell', this);
+    console.log('sibling', siblingId);
+    this.siblings.unshift(siblingId);
   }
 
   neighbors() {
@@ -132,10 +134,6 @@ class Board {
   constructor(disc){
     this.cells = {};
     this.disc = disc;
-  }
-
-  addNode(cell){
-    this.cells.push(cell);
   }
 
   populate(numLevels){
