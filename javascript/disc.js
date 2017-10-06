@@ -15,13 +15,13 @@ class Disc {
     Object.freeze(cells);
     this.cells = merge({}, cells);
   }
-  
+
   drawFirstThree() {
     //takes an array of the three root cells
 
     const firstMid = this.hCanv.Point
       .givenHyperbolicPolarCoordinates(this.polyRadius, Math.PI * 0.5);
-    for (let i = 0; i < this.cells.length; i++) {
+    for (let i = 0; i < 3; i++) {
       const mid = firstMid.rotateAboutOrigin(i * (Math.TAU/3));
       // const poly = this.hCanv.Polygon.givenHyperbolicNCenterRadius(
       //   7, mid, this.polyRadius, (i * Math.TAU/3) + Math.TAU * (3/4)
@@ -34,7 +34,7 @@ class Disc {
       this.cells[i].center = mid;
       this.canvas.stroke(path);
     }
-    this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
+    // this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
   }
 
   setNeighborCenters(cell, parent) {

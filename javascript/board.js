@@ -49,7 +49,6 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
-    console.log('currentLevel', currentLevel);
     let lastId = currentLevel[currentLevel.length - 1].id;
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
