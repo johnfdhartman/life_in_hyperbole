@@ -21,17 +21,27 @@ class Cell {
 
   addRightSibling(sibling) {
     this.siblings.push(sibling.id);
-    sibling.addLeftSiblingId(this.id);
+    sibling.addLeftSibling(this);
   }
 
-  addLeftSiblingId(siblingId) {
-    console.log('currentCell', this);
-    console.log('sibling', siblingId);
-    this.siblings.unshift(siblingId);
+  addLeftSibling(sibling) {
+    this.siblings.unshift(sibling.id);
   }
 
   neighbors() {
     return (this.parents).concat(this.siblings).concat(this.children);
+  }
+
+  //these methods are specifically so that the first cell's children
+  //are arranged clockwise
+
+  addSecondParent(parent) {
+    this.parents.push(parent.id);
+    parent.addSharedChild(this);
+  }
+
+  addSharedChild(child) {
+    this.children.unshift(child.id);
   }
 
   // findNextState(rule) {
@@ -47,6 +57,7 @@ class Cell {
   updateState() {
     this.state = this.nextState;
   }
+
 }
 
 export default Cell;

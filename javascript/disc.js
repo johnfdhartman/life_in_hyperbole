@@ -51,12 +51,6 @@ class Disc {
         angleToParent * (i * Math.TAU/7)
       ));
     }
-    //get all the neighbors without centers
-    //then iterate over neighborCenters, assigning centers
-    //problem: how do i make sure it's the right center for the right polygon?
-    //if a cell has two parents, we can see which neighborCenters the parent
-    //if the cell's siblings have already been assigned centers, we can
-    //cross reference with the cell's siblings
 
     //insights: a pair of siblings cannot share more than one child
 
@@ -71,6 +65,8 @@ class Disc {
     // by TAU/7 radians until we generate a point that is more than polyRadius/2
     //away from a pre=assigned center
     //then we map the next k centers to the cell's k unassigned children
+
+
 
   }
 

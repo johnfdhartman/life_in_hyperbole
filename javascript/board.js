@@ -49,6 +49,7 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
+
     let lastId = currentLevel[currentLevel.length - 1].id;
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
@@ -61,12 +62,20 @@ class Board {
         children.push(child);
       }
       let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
-      children[children.length - 1].addParent(rightSibling);
+
+      if (rightSibling.children.length > 0) {
+        //only triggered on the very last currentCell
+        //this is so the first cell's children are arranged clockwise
+        children[children.length -1].addSecondParent(rightSibling);
+      } else {
+        children[children.length - 1].addParent(rightSibling);
+      }
       nextLevel = nextLevel.concat(children);
     });
     this.connectLevel(nextLevel);
     return nextLevel;
   }
+
 }
 
 
