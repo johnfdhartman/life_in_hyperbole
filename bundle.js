@@ -323,7 +323,7 @@ class Disc {
       this.cells[i].center = mid;
       this.canvas.stroke(path);
     }
-    // this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
+    this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
   }
 
   setNeighborCenters(cell, parent) {
@@ -346,7 +346,20 @@ class Disc {
     //if a cell has two parents, we can see which neighborCenters the parent
     //if the cell's siblings have already been assigned centers, we can
     //cross reference with the cell's siblings
-    //eek
+
+    //insights: a pair of siblings cannot share more than one child
+
+    //1) every non-root cell is spawned by one of its parents
+    //2) the children in the cell.children array are stored clockwise
+    //3) thus the adjacency properties between a cell's children are easy
+
+    //4) by the time we are rendering the cell's children, we have already
+    //rendered its siblings
+    //5) so we only need to bother assigning centers to its children
+    //6) starting with the line to the cell's parent, we rotate *clockwise*
+    // by TAU/7 radians until we generate a point that is more than polyRadius/2
+    //away from a pre=assigned center
+    //then we map the next k centers to the cell's k unassigned children
 
   }
 
