@@ -72,46 +72,46 @@ class Cell {
   constructor(id){
     this.state = false;
     this.id = id;
-    this.parents = [];
-    this.siblings = [];
-    this.children = [];
+    this.parentIds = [];
+    this.siblingIds = [];
+    this.childIds = [];
     this.nextState = false;
   }
 
   addParentId(parent) {
     console.log('parent', parent);
-    this.parents.push(parent.id);
+    this.parentIds.push(parent.id);
     parent.addChild(this);
   }
 
   addChildId(child) {
-    this.children.push(child.id);
+    this.childIds.push(child.id);
     // child.addParent(this); this causes a loop
   }
 
   addRightSiblingId(sibling) {
-    this.siblings.push(sibling.id);
+    this.siblingIds.push(sibling.id);
     sibling.addLeftSibling(this);
   }
 
   addLeftSiblingId(sibling) {
-    this.siblings.unshift(sibling.id);
+    this.siblingIds.unshift(sibling.id);
   }
 
   neighborIds() {
-    return (this.parents).concat(this.siblings).concat(this.children);
+    return (this.parentIds).concat(this.siblingIds).concat(this.childIds);
   }
 
-  //these methods are specifically so that the first cell's children
+  //these methods are specifically so that the first cell's childIds
   //are arranged clockwise
 
   addSecondParentId(parent) {
-    this.parents.push(parent.id);
+    this.parentIds.push(parent.id);
     parent.addSharedChild(this);
   }
 
   addSharedChildId(child) {
-    this.children.unshift(child.id);
+    this.childIds.unshift(child.id);
   }
 
   // findNextState(rule) {
