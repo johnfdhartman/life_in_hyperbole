@@ -79,7 +79,6 @@ class Cell {
   }
 
   addParentId(parent) {
-    console.log('parent', parent);
     this.parentIds.push(parent.id);
     parent.addChild(this);
   }
@@ -346,7 +345,7 @@ class Disc {
     this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
   }
 
-  setNeighborCenters(cell, parent) {
+  findCenterlessChildren(cell, parent) {
     //Find the centers of all neighbor polygons without centers
     //and then set their centers
     //Assumes cell has a center
@@ -374,13 +373,44 @@ class Disc {
     // by TAU/7 radians until we generate a point that is more than polyRadius/2
     //away from a pre=assigned center
     //then we map the next k centers to the cell's k unassigned children
-    let unassignedChildren = [];
+    let unCenteredChildIds = [];
+    let assignedNeighbors = [];
+    cell.childIds.forEach( (childId) => {
+      if (this.cells[childId].center) {
+        assignedNeighbors.push(this.cells[childId]);
+      } else{
+        unCenteredChildIds.push(this.cells[childId]);
+      }
+    });
 
     let angleToParent = cell.center.hyperbolicAngleTo(parent.center);
     angleToParent = this.hCanv.Angle.normalize(angleToParent);
+    for (let i = 0; i < 6; i++) {
+      let neighborCenter = cell.center.hyperbolicDistantPoint(
+        this.distBetweenCenters,
+        angleToParent * (i * Math.TAU/7)
+      );
+      if (
+        !assignedNeighbors.any( (neighbor) => (
+          (neighbor.center.hyperboliDistanceTo(neighborCenter)
+            < this.polyRadius/2)
+        ))
+      ) {
+        this.setChildCenters.bind(this)(cell, unCenteredChildIds, neighborCenter);
+        break;
+      }
+    }
+  }
 
-
-
+  setChildCenters(parent, unCenteredChildIds, firstChildCenter){
+    firstChildCenter = this.hCanv.Angle.normalize(firstChildCenter);
+    for (let i = 0; i < unCenteredChildIds.length; i++) {
+      let childCenter = parent.center.hyperbolicDistantPoint(
+        this.distBetweenCenters,
+        firstChildCenter * (i * Math.TAU/7)
+      );
+      this.cells[unCenteredChildIds[i]].center = childCenter;
+    }
   }
 
 
