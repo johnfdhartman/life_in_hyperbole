@@ -10,7 +10,7 @@ class Cell {
 
   addParentId(parent) {
     this.parentIds.push(parent.id);
-    parent.addChild(this);
+    parent.addChildId(this);
   }
 
   addChildId(child) {
@@ -20,7 +20,7 @@ class Cell {
 
   addRightSiblingId(sibling) {
     this.siblingIds.push(sibling.id);
-    sibling.addLeftSibling(this);
+    sibling.addLeftSiblingId(this);
   }
 
   addLeftSiblingId(sibling) {
@@ -36,7 +36,7 @@ class Cell {
 
   addSecondParentId(parent) {
     this.parentIds.push(parent.id);
-    parent.addSharedChild(this);
+    parent.addSharedChildId(this);
   }
 
   addSharedChildId(child) {

@@ -80,7 +80,7 @@ class Cell {
 
   addParentId(parent) {
     this.parentIds.push(parent.id);
-    parent.addChild(this);
+    parent.addChildId(this);
   }
 
   addChildId(child) {
@@ -90,7 +90,7 @@ class Cell {
 
   addRightSiblingId(sibling) {
     this.siblingIds.push(sibling.id);
-    sibling.addLeftSibling(this);
+    sibling.addLeftSiblingId(this);
   }
 
   addLeftSiblingId(sibling) {
@@ -106,7 +106,7 @@ class Cell {
 
   addSecondParentId(parent) {
     this.parentIds.push(parent.id);
-    parent.addSharedChild(this);
+    parent.addSharedChildId(this);
   }
 
   addSharedChildId(child) {
@@ -189,11 +189,11 @@ class Board {
     //cells. the last one of these cells is given an additional parent
     //of cell.siblings.last
     //then connectLevel is called
-
     let lastId = currentLevel[currentLevel.length - 1].id;
     let nextLevel = [];
     currentLevel.forEach( (currentCell) => {
-      let numParents = currentCell.parents.length;
+      console.log(currentCell);
+      let numParents = currentCell.parentIds.length;
       let children = [];
       for (let i = 0; i < (7 - numParents - 3); i++) {
         lastId += 1;
@@ -201,9 +201,11 @@ class Board {
         child.addParentId(currentCell);
         children.push(child);
       }
-      let rightSibling = this.cells[currentCell.siblings[currentCell.siblings.length -1]];
+      let rightSibling = this.cells[
+        currentCell.siblingIds[currentCell.siblingIds.length -1]
+      ];
 
-      if (rightSibling.children.length > 0) {
+      if (rightSibling.childIds.length > 0) {
         //only triggered on the very last currentCell
         //this is so the first cell's children are arranged clockwise
         children[children.length -1].addSecondParentId(rightSibling);
