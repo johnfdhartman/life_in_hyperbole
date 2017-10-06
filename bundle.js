@@ -328,33 +328,6 @@ class Disc {
     this.distBetweenCenters = firstMid.hyperbolicDistanceTo(this.cells[1].center);
   }
 
-  deepCloneCells(cells) {
-    //load copies into a new array
-    //then save adjacencies in a new variable called neighbors
-    //the parents, siblings and children properties are deleted from
-    //the copy to keep things separate
-    Object.freeze(cells);
-    let newCells = [];
-    cells.map( (cell) => {
-      let newCell = new __WEBPACK_IMPORTED_MODULE_1__cell__["a" /* default */]();
-      Object.assign(newCell, cell);
-      this.cells.push(newCell);
-    });
-
-    newCells.each((newCell) => {
-      const newCellIdx = newCells.indexOf(newCell);
-      newCell.neighbors = [];
-      newCell.neighbors().each( (neighbor) => {
-        const neighborIdx = cells.indexOf(neighbor);
-        newCell.neighbors.push(newCells[neighborIdx]);
-      });
-      delete newCell.parents;
-      delete newCell.siblings;
-      delete newCell.children;
-    });
-    return newCells;
-  }
-
   setNeighborCenters(cell, parent) {
     //Find the centers of all neighbor polygons without centers
     //and then set their centers
@@ -376,7 +349,7 @@ class Disc {
     //if the cell's siblings have already been assigned centers, we can
     //cross reference with the cell's siblings
     //eek
-    
+
   }
 
 
